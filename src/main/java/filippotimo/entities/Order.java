@@ -73,8 +73,7 @@ public class Order {
     @Override
     public String toString() {
         return "Order{" +
-                "random=" + random +
-                ", id=" + id +
+                "id=" + id +
                 ", status='" + status + '\'' +
                 ", orderDate=" + orderDate +
                 ", deliveryDate=" + deliveryDate +

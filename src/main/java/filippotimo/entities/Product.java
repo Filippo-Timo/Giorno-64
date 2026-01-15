@@ -51,8 +51,7 @@ public class Product {
     @Override
     public String toString() {
         return "Product{" +
-                "randomNumber=" + randomNumber +
-                ", id=" + id +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", category='" + category + '\'' +
                 ", price=" + price +

@@ -6,14 +6,15 @@ import filippotimo.entities.Order;
 import filippotimo.entities.Product;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Locale;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class Application {
 
     public static void main(String[] args) {
         Faker faker = new Faker(Locale.ITALIAN);
+        Random random = new Random();
 
 
         ArrayList<Customer> customers = new ArrayList<Customer>();
@@ -51,6 +52,13 @@ public class Application {
 
         orders.add(new Order("Pagato", LocalDate.of(2025, 9, 25), carrello1, customers.get(3)));
 
+        ArrayList<Product> carrello1bis = new ArrayList<Product>();
+        carrello1.add(products.get(3));
+        carrello1.add(products.get(9));
+        carrello1.add(products.get(0));
+
+        orders.add(new Order("Conseganto", LocalDate.of(2021, 12, 3), carrello1bis, customers.get(3)));
+
         //      -------------------------------------------------------------- SECONDO ORDINE --------------------------------------------------------------
         ArrayList<Product> carrello2 = new ArrayList<Product>();
         carrello2.add(products.get(8));
@@ -79,6 +87,14 @@ public class Application {
 
         System.out.println("---------------------------------------------- PRIMO ESERCIZIO ----------------------------------------------");
 
-        
+        Map<String, List<Order>> listaProdottiPerUtente = orders.stream()
+                .collect(Collectors
+                        .groupingBy(order -> order.getCustomer().getName()));
+
+        listaProdottiPerUtente.forEach((nome, ordini) -> {
+            System.out.println("Nome utente: " + nome + " / " + "ordini: " + ordini);
+        });
+
+        System.out.println("---------------------------------------------- SECONDO ESERCIZIO ----------------------------------------------");
     }
 }
