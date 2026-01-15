@@ -85,6 +85,7 @@ public class Application {
 
         orders.add(new Order("Pagato", LocalDate.of(2021, 2, 15), carrello2, customers.get(1)));
 
+        
         System.out.println("---------------------------------------------- PRIMO ESERCIZIO ----------------------------------------------");
 
         Map<String, List<Order>> listaProdottiPerUtente = orders.stream()
@@ -96,5 +97,40 @@ public class Application {
         });
 
         System.out.println("---------------------------------------------- SECONDO ESERCIZIO ----------------------------------------------");
+
+        Map<String, Double> totaleCarrelloPerCliente = orders.stream()
+                .collect(Collectors.groupingBy(order -> order.getCustomer().getName(),
+                        Collectors.summingDouble(product -> product.getProducts().stream()
+                                .mapToDouble(Product::getPrice)
+                                .sum())));
+
+        System.out.println(totaleCarrelloPerCliente);
+
+        System.out.println("---------------------------------------------- TERZO ESERCIZIO ----------------------------------------------");
+
+        List<Product> mostExpensiveProducts = products.stream()
+                .sorted(Comparator.comparing(Product::getPrice)
+                        .reversed())
+                .toList();
+
+        mostExpensiveProducts.forEach(product -> System.out.println(product));
+
+        System.out.println("---------------------------------------------- QUARTO ESERCIZIO ----------------------------------------------");
+
+        OptionalDouble OrdersAverages = orders.stream()
+                .mapToDouble(order -> order.getProducts().stream()
+                        .mapToDouble(Product::getPrice)
+                        .sum())
+                .average();
+
+        System.out.println("La media degli ordini è di : " + OrdersAverages.getAsDouble());
+
+        System.out.println("---------------------------------------------- CINQUE ESERCIZIO ----------------------------------------------");
+
+        Map<String, Double> categoryPlusSum = products.stream()
+                .collect(Collectors.groupingBy(product -> product.getCategory(),
+                        Collectors.summingDouble(product -> product.getPrice())));
+
+        categoryPlusSum.forEach((category, value) -> System.out.println("Categoria: " + category + ", totale: " + value));
     }
 }
