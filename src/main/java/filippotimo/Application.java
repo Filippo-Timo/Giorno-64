@@ -123,7 +123,9 @@ public class Application {
                         .sum())
                 .average();
 
-        System.out.println("La media degli ordini è di : " + OrdersAverages.getAsDouble());
+        if (OrdersAverages.isPresent())
+            System.out.println("La media degli ordini è di: " + OrdersAverages.getAsDouble());
+        else System.out.println("Impossibile calcolare la media, la lista degli ordini è vuota!");
 
         System.out.println("---------------------------------------------- CINQUE ESERCIZIO ----------------------------------------------");
 
