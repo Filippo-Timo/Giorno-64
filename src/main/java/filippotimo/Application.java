@@ -85,7 +85,7 @@ public class Application {
 
         orders.add(new Order("Pagato", LocalDate.of(2021, 2, 15), carrello2, customers.get(1)));
 
-        
+
         System.out.println("---------------------------------------------- PRIMO ESERCIZIO ----------------------------------------------");
 
         Map<String, List<Order>> listaProdottiPerUtente = orders.stream()
@@ -98,8 +98,8 @@ public class Application {
 
         System.out.println("---------------------------------------------- SECONDO ESERCIZIO ----------------------------------------------");
 
-        Map<String, Double> totaleCarrelloPerCliente = orders.stream()
-                .collect(Collectors.groupingBy(order -> order.getCustomer().getName(),
+        Map<Customer, Double> totaleCarrelloPerCliente = orders.stream()
+                .collect(Collectors.groupingBy(order -> order.getCustomer(),
                         Collectors.summingDouble(product -> product.getProducts().stream()
                                 .mapToDouble(Product::getPrice)
                                 .sum())));
